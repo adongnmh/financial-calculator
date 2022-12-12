@@ -9,5 +9,5 @@ import (
 func CalculateMortgagePayments(w http.ResponseWriter, r *http.Request) {
 	payload := r.Context().Value(KeyRequest{}).(*PayloadMortgage)
 	p := CalculateMortgage(payload)
-	util.RespondWithJSON(w, http.StatusOK, map[string]int{"mortgage-payments": p})
+	util.RespondWithJSON(w, http.StatusOK, map[string]float64{"mortgage-payments": p})
 }

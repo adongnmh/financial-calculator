@@ -8,7 +8,7 @@ import (
 
 const (
 	BiWeekly      = "bi-weekly"
-	BiWeeklyAccel = "bi-weekly-accelerated"
+	BiWeeklyAccel = "bi-weekly-accel"
 	Monthly       = "monthly"
 )
 
@@ -16,7 +16,7 @@ type PayloadMortgage struct {
 	PropertyPrice      float64 `json:"property_price" validate:"gte=1"`
 	DownPayment        float64 `json:"down_payment" validate:"gte=0"`
 	AnnualInterestRate float64 `json:"annual_interest_rate" validate:"gte=0"`
-	Period             int64   `json:"period" validate:"required"`
+	Period             int     `json:"period" validate:"required"`
 	PaymentSchedule    string  `json:"payment_schedule" validate:"required,schedule"`
 }
 
