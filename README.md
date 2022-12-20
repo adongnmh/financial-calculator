@@ -13,3 +13,22 @@
 - For the sake of finishing the assignment in 90min time frame. I did not include any integrated tests and I rely on unit tests to ensure that functionality was working. If there was more time, or I had time after work I would implement this. 
 - Would like to streamline the error messages better in the validation of the mortgage payload.
 - More custom validation for the Mortgage payload - ie handle ranges, make sure values make sense, etc
+
+#### To run server:
+docker-compose up --build
+or 
+go build main.go
+
+serve on localhost:3000
+
+localhost:3000/api/calculate-mortgage-payments
+Sample Payload:
+```json
+{
+	"property_price": 300000,
+	"down_payment": 30000,
+	"annual_interest_rate": 5.00,
+	"Period": 25,
+	"payment_schedule": "monthly/bi-weekly/bi-weekly-accel"
+}
+```
