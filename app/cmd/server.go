@@ -2,31 +2,30 @@ package server
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
 	"quoter/internal/mortgage"
 	"quoter/util"
 )
 
-var router *mux.Router
+var chiRouter chi.Router
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 	util.RespondWithJSON(w, http.StatusOK, map[string]string{"result": "success"})
 }
 
 func initHandlers() {
-	statusRouter := router.Methods(http.MethodGet).Subrouter()
-	statusRouter.HandleFunc("/api/status", statusHandler)
-
-	mortgageRouter := router.Methods(http.MethodPost).Subrouter()
-	mortgageRouter.HandleFunc("/api/calculate-mortgage-payments", mortgage.CalculateMortgagePayments).Methods("POST")
-	mortgageRouter.Use(mortgage.ValidatePayload)
+	chiRouter.Get("/api/status", statusHandler)
+	chiRouter.Route("/api/calculate-mortgage-payments", func(r chi.Router) {
+		r.Use(mortgage.ValidatePayload)
+		r.Post("/", mortgage.CalculateMortgagePayments)
+	})
 }
 
 func Start() {
-	router = mux.NewRouter()
+	chiRouter = chi.NewRouter()
 	initHandlers()
 	fmt.Printf("router initialized and listening on 3000\n")
-	log.Fatal(http.ListenAndServe(":3000", router))
+	log.Fatal(http.ListenAndServe(":3000", chiRouter))
 }
