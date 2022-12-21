@@ -1,4 +1,4 @@
-### Quoter Coding Challenge
+### Canada Mortage Calculator
 
 - Simple REST API that calculates the mortgage payments 
 
